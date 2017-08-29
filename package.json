@@ -1,0 +1,19 @@
+{
+  "name": "rename_anime",
+  "version": "1.0.0",
+  "description": "Just a basic tool to rename my animes",
+  "main": "main.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xuecnahc/rename_anime.git"
+  },
+  "author": "Xuecnahc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Xuecnahc/rename_anime/issues"
+  },
+  "homepage": "https://github.com/Xuecnahc/rename_anime#readme"
+}
