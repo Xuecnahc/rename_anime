@@ -2,6 +2,9 @@ const fs = require('fs')
 const config = require('./config.json')
 const {Anime} = require('./Anime.js')
 
+/**
+ * @param {String} error
+ */
 function logError(error) {
   console.error(error)
   fs.writeFile('./logs/log.txt', error, function(logWritingError) {
