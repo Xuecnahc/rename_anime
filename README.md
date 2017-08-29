@@ -1,8 +1,7 @@
-# How to use it?
-## Requirements
+# Requirements
 To use it you, obviously, need to have nodejs installed..
 
-##
+# How to use it?
 - Create a `logs` folder under the project (if you want some log in case of failure)
 - In `config.json` change the hard coded path for the `target_dir`
   - Note that you can add other directories
