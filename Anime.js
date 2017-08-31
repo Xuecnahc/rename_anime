@@ -15,6 +15,8 @@ class Anime {
     const seriesName = folderName || info.name
     this.name = seriesName + ' - ' + info.number + '.' + info.extension
     this.isFailed = info.isFailed
+    this.number = info.number
+    this.extension = info.extension
   }
 
   /**

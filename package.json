@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Xuecnahc/rename_anime/issues"
   },
-  "homepage": "https://github.com/Xuecnahc/rename_anime#readme"
+  "homepage": "https://github.com/Xuecnahc/rename_anime#readme",
+  "dependencies": {
+    "prompt-sync": "^4.1.5"
+  }
 }
