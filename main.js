@@ -36,6 +36,7 @@ function renameFiles(dir, folderName) {
         return
       }
       const isDowloading = fileNames.includes(fileNames + '.part')
+      const isDowloading = fileNames.includes(fileName + '.part')
       if (config.skip_downloading_content && isDowloading) {
         return
       }
