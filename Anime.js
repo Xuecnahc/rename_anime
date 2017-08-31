@@ -46,7 +46,6 @@ class Anime {
       name: name,
       number: number.length < 2 ? '0' + number : number,
       extension: extension,
-      isFailed: name.trim() === ''
       isFailed: isFailed
     }
   }
