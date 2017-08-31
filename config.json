@@ -13,7 +13,7 @@
       "path": "C:\\Users\\Hiéronymus Pierre\\Downloads",
       "reccursion": {
         "use_dir_name": true,
-        "excluded_folders": []
+        "excluded_files": []
       }
     }
   ]

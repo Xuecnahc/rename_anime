@@ -5,11 +5,15 @@ const {Anime} = require('./Anime.js')
 /**
  * @param {String} error
  */
-function logError(error) {
+function logIfError(error) {
+  if (!error) {
+    return
+  }
+
   console.error(error)
   fs.writeFile('./logs/log.txt', error, function(logWritingError) {
       if (logWritingError) {
-          return console.error(logWritingError)
+          console.error(logWritingError)
       }
   })
 }
@@ -23,41 +27,29 @@ function logError(error) {
  * @param {String} [folderName]
  */
 function renameFiles(dir, folderName) {
-  const excludedFolder = dir.reccursion && dir.reccursion.excluded_folders || []
+  const excludedFiles = dir.reccursion && dir.reccursion.excluded_files || []
   const useDirName = dir.reccursion && dir.reccursion.use_dir_name
 
   fs.readdir(dir.path, (err, fileNames) => {
     fileNames.forEach(fileName => {
+      if (excludedFiles.includes(fileName)) {
+        return
+      }
       const isDowloading = fileNames.includes(fileNames + '.part')
       if (config.skip_downloading_content && isDowloading) {
         return
       }
 
       const filePath = [dir.path, fileName].join('\\')
-      const isVideo = config.video_extensions.some(format => {
-        return fileName.endsWith(format)
-      })
-
-      if (isVideo ) {
-        var anime = new Anime(
-          fileName,
-          useDirName && folderName
-        )
-
-        fs.rename(filePath, [dir.path, anime.name].join('\\'), function(error) {
-          if (error) {
-            logError(error)
-          }
-        })
+      const isVideo = config.video_extensions.some(format => fileName.endsWith(format))
+      if (isVideo) {
+        var anime = new Anime(fileName, useDirName && folderName)
+        fs.rename(filePath, [dir.path, anime.name].join('\\'), logIfError)
       }
 
-      if (dir.reccursion &&
-          fs.lstatSync(filePath).isDirectory() &&
-          !excludedFolder.includes(fileName)) {
-        renameFiles(
-          Object.assign({}, dir, {path: filePath}),
-          useDirName ? fileName : null
-        )
+      if (dir.reccursion && fs.lstatSync(filePath).isDirectory()) {
+        var fileConfig = Object.assign({}, dir, {path: filePath})
+        renameFiles(fileConfig, useDirName ? fileName : null)
       }
     });
   })

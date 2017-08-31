@@ -10,11 +10,11 @@ class Anime {
    */
   constructor(fileName, folderName) {
     this.fileName = fileName
-    this.name = null
 
     const info = this._getInfos(fileName)
     const seriesName = folderName || info.name
     this.name = seriesName + ' - ' + info.number + '.' + info.extension
+    this.isFailed = info.isFailed
   }
 
   /**
@@ -44,7 +44,7 @@ class Anime {
       name: name,
       number: number.length < 2 ? '0' + number : number,
       extension: extension,
-      isFailure: name.trim() === ''
+      isFailed: name.trim() === ''
     }
   }
 }
