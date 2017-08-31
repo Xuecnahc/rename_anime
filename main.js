@@ -1,5 +1,5 @@
 const fs = require('fs')
-const prompt = require('prompt-sync')();
+const prompt = require('prompt-sync')()
 
 const config = require('./src/config.json')
 const {Anime} = require('./src/Anime.js')
@@ -48,7 +48,7 @@ function renameFiles(dir, folderName) {
         const anime = new Anime(fileName, useDirName && folderName)
 
         if (folderName && anime.isFailed) { // failure in folder, try
-          const number = prompt('What is the episode for ' + folderName + '? (default ' + anime.number + ') ');
+          const number = prompt('What is the episode for ' + folderName + '? (default ' + anime.number + ') ')
           const animeName = folderName + ' - ' + number + '.' +  anime.extension
           fs.rename(filePath, [dir.path, animeName].join('\\'), logIfError)
         } else {
