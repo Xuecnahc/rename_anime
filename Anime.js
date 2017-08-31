@@ -44,7 +44,7 @@ class Anime {
       name: name,
       number: number.length < 2 ? '0' + number : number,
       extension: extension,
-      isFailure: name === 'anime'
+      isFailure: name.trim() === ''
     }
   }
 }

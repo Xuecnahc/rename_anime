@@ -5,7 +5,8 @@
     "avi"
   ],
   "banned_words": [
-    "Episode", "episode"
+    "Episode", "episode",
+    "Anime", "anime"
   ],
   "target_dir": [
     {
