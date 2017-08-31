@@ -5,8 +5,7 @@
     "avi"
   ],
   "banned_words": [
-    "Episode", "episode",
-    "Anime", "anime"
+    "Episode", "episode"
   ],
   "failure_words": [
     "Anime", "anime"

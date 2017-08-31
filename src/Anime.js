@@ -43,7 +43,8 @@ class Anime {
     const name = sanitizedName.substring(0, sanitizedName.lastIndexOf(number)).trim()
 
     // If the name is equals to it the renaming is considered as failed
-    const isFailed = config.failure_words.includes(name)
+    console.log(name)
+    const isFailed = !name || config.failure_words.includes(name)
     return {
       name: name,
       number: number.length < 2 ? '0' + number : number,

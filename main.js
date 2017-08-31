@@ -1,8 +1,8 @@
 const fs = require('fs')
 const prompt = require('prompt-sync')();
 
-const config = require('./config.json')
-const {Anime} = require('./Anime.js')
+const config = require('./src/config.json')
+const {Anime} = require('./src/Anime.js')
 
 /**
  * @param {String} error
