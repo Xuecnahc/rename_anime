@@ -8,6 +8,9 @@
     "Episode", "episode",
     "Anime", "anime"
   ],
+  "failure_words": [
+    "Anime", "anime"
+  ],
   "target_dir": [
     {
       "path": "C:\\Users\\Hiéronymus Pierre\\Downloads",
