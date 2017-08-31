@@ -28,16 +28,22 @@ function renameFiles(dir, folderName) {
 
   fs.readdir(dir.path, (err, fileNames) => {
     fileNames.forEach(fileName => {
+      const isDowloading = fileNames.includes(fileNames + '.part')
+      if (config.skip_downloading_content && isDowloading) {
+        return
+      }
+
       const filePath = [dir.path, fileName].join('\\')
       const isVideo = config.video_extensions.some(format => {
         return fileName.endsWith(format)
       })
 
-      if (isVideo) {
+      if (isVideo ) {
         var anime = new Anime(
           fileName,
           useDirName && folderName
         )
+
         fs.rename(filePath, [dir.path, anime.name].join('\\'), function(error) {
           if (error) {
             logError(error)
