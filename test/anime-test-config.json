@@ -1,0 +1,22 @@
+{
+  "skip_downloading_content": true,
+  "video_extensions": [
+    "mp4",
+    "avi"
+  ],
+  "banned_words": [
+    "Episode", "episode"
+  ],
+  "failure_words": [
+    "Anime", "anime"
+  ],
+  "target_dir": [
+    {
+      "path": "C:\\Users\\Hiéronymus Pierre\\Downloads",
+      "reccursion": {
+        "use_dir_name": true,
+        "excluded_files": []
+      }
+    }
+  ]
+}

@@ -33,7 +33,7 @@ class Anime {
     const extension = splitedName.pop(); // remove extension
     var sanitizedName = splitedName.join('.').replace(/-|_/g, ' ')
       .replace(/ *\([^)]*\) */g, '') // remove text between brackets
-      .replace(/ *\[[^\]]*\) */g, '') // remove text between square brackets
+      .replace(/\[.*\]/g, '') // remove text between square brackets
 
     config.banned_words.forEach(word => {
       sanitizedName = sanitizedName.replace(word, '')
