@@ -45,12 +45,11 @@ function renameFiles(dir, folderName) {
       const filePath = [dir.path, fileName].join('\\')
       const isVideo = config.video_extensions.some(format => fileName.endsWith(format))
       if (isVideo) {
-        var anime = new Anime(fileName, useDirName && folderName)
-        fs.rename(filePath, [dir.path, anime.name].join('\\'), logIfError)
+        const anime = new Anime(fileName, useDirName && folderName)
 
         if (folderName && anime.isFailed) { // failure in folder, try
-          const number = prompt('What is the episode for ' + folderName + '? (default ' + anime.number + ')');
-          const animeName = folderName + ' - ' + anime.number + '.' +  anime.extension
+          const number = prompt('What is the episode for ' + folderName + '? (default ' + anime.number + ') ');
+          const animeName = folderName + ' - ' + number + '.' +  anime.extension
           fs.rename(filePath, [dir.path, animeName].join('\\'), logIfError)
         } else {
           fs.rename(filePath, [dir.path, anime.name].join('\\'), logIfError)
