@@ -47,13 +47,12 @@ function renameFiles(dir, folderName) {
       if (isVideo) {
         const anime = new Anime(fileName, useDirName && folderName)
 
-        if (folderName && anime.isFailed) { // failure in folder, try
-          const number = prompt('What is the episode for ' + folderName + '? (default ' + anime.number + ') ')
-          const animeName = folderName + ' - ' + number + '.' +  anime.extension
-          fs.rename(filePath, [dir.path, animeName].join('\\'), logIfError)
-        } else {
-          fs.rename(filePath, [dir.path, anime.name].join('\\'), logIfError)
-        }
+        const number = folderName && anime.isFailed ?
+          prompt('What is the episode for ' + folderName + '? (default ' + anime.number + ') ') :
+          anime.number
+        const fileName = anime.getFileName({number: number})
+
+        fs.rename(filePath, [dir.path, fileName].join('\\'), logIfError)
       }
 
       if (dir.reccursion && fs.lstatSync(filePath).isDirectory()) {

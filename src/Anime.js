@@ -12,14 +12,30 @@ class Anime {
     this.fileName = fileName
 
     const info = this._getInfos(fileName)
-    const seriesName = folderName || info.name
-    this.name = seriesName + ' - ' + info.number + '.' + info.extension
+    this.seriesName = folderName || info.name
     this.isFailed = info.isFailed
     this.number = info.number
     this.extension = info.extension
   }
 
   /**
+   * @public
+   * Generate the anime name
+   *
+   * @param {Object} options
+   * @param {!String} [options.seriesName=this.seriesName]
+   * @param {!String|Number} [options.number=this.number]
+   */
+  getFileName({seriesName, number}) {
+    seriesName = seriesName || this.seriesName
+    number = number || this.number
+    const pretifiedNumber = number.toString().length < 2 ? '0' + number : number
+    return seriesName + ' - ' + pretifiedNumber + '.' + this.extension
+  }
+
+  /**
+   * @private
+   *
    * @param {String} fileName
    *
    * @returns {Map} info
@@ -43,7 +59,6 @@ class Anime {
     const name = sanitizedName.substring(0, sanitizedName.lastIndexOf(number)).trim()
 
     // If the name is equals to it the renaming is considered as failed
-    console.log(name)
     const isFailed = !name || config.failure_words.includes(name)
     return {
       name: name,

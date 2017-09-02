@@ -2,7 +2,8 @@
   "skip_downloading_content": true,
   "video_extensions": [
     "mp4",
-    "avi"
+    "avi",
+    "mkv"
   ],
   "banned_words": [
     "Episode", "episode"
