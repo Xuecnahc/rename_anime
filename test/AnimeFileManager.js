@@ -8,11 +8,11 @@ const testConfig = require('./configs/anime-test.json')
 const {FilesUtils} = require('../src/FilesUtils.js')
 
 const readLineStub = {question: sinon.stub().returns(3)};
-const {AnimeFileRenamer} = proxyquire(
-  '../src/AnimeFileRenamer.js', {'readline-sync': readLineStub}
+const {AnimeFileManager} = proxyquire(
+  '../src/AnimeFileManager.js', {'readline-sync': readLineStub}
 )
 
-describe('AnimeFileRenamer', function() {
+describe('AnimeFileManager', function() {
   const tempFolder = './test/temp/'
   const folderPath = path.join(tempFolder, 'testDir')
   const folder2Path = path.join(tempFolder, 'testDir2')
@@ -34,7 +34,7 @@ describe('AnimeFileRenamer', function() {
 
   describe('#renameAll', function() {
     it('should rename all anime in a folder according to folder name', function() {
-      const animeFileRenamer = new AnimeFileRenamer(testConfig)
+      const animeFileRenamer = new AnimeFileManager(testConfig)
       animeFileRenamer.renameAll()
 
       assert(fs.existsSync(path.join(folderPath, 'testDir - 01.mkv')))

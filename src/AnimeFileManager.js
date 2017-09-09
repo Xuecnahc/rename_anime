@@ -6,7 +6,7 @@ const {FilesUtils} = require('./FilesUtils.js')
 const {Anime} = require('./Anime.js')
 var appDir = path.dirname(require.main.filename);
 
-class AnimeFileRenamer {
+class AnimeFileManager {
   /**
    * Util to rename anime in file system using a given config
    *
@@ -77,4 +77,4 @@ class AnimeFileRenamer {
   }
 }
 
-exports.AnimeFileRenamer = AnimeFileRenamer;
+exports.AnimeFileManager = AnimeFileManager;

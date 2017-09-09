@@ -1,5 +1,5 @@
 const config = require('./src/config.json')
-const {AnimeFileRenamer} = require('./src/AnimeFileRenamer.js')
+const {AnimeFileManager} = require('./src/AnimeFileManager.js')
 
-const fileRenamer = new AnimeFileRenamer(config)
+const fileRenamer = new AnimeFileManager(config)
 fileRenamer.renameAll()
