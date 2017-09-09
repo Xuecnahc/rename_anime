@@ -1,5 +1,3 @@
-const fs = require('fs')
-
 const config = require('./src/config.json')
 const {AnimeFileRenamer} = require('./src/AnimeFileRenamer.js')
 
