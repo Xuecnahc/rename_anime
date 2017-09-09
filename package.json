@@ -4,6 +4,7 @@
   "description": "Just a basic tool to rename my animes",
   "main": "main.js",
   "scripts": {
+    "start": "node main.js",
     "test": "mocha test/"
   },
   "repository": {
