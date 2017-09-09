@@ -1,4 +1,5 @@
 {
+  "log_dir": "logs/",
   "skip_downloading_content": true,
   "video_extensions": [
     "mp4",
@@ -14,6 +15,13 @@
   "target_dir": [
     {
       "path": "C:\\Users\\Hiéronymus Pierre\\Downloads",
+      "reccursion": {
+        "use_dir_name": true,
+        "excluded_files": []
+      }
+    },
+    {
+      "path": "D:\\Anime",
       "reccursion": {
         "use_dir_name": true,
         "excluded_files": []

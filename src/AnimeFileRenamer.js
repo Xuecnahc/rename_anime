@@ -1,7 +1,10 @@
 const fs = require('fs')
-const prompt = require('prompt-sync')()
+const path = require('path');
+const readLineSync = require('readline-sync')
 
-const {Anime} = require('./src/Anime.js')
+const {FilesUtils} = require('./FilesUtils.js')
+const {Anime} = require('./Anime.js')
+var appDir = path.dirname(require.main.filename);
 
 class AnimeFileRenamer {
   /**
@@ -26,22 +29,6 @@ class AnimeFileRenamer {
 
   /**
    * @private
-   * @param {String} error
-   */
-  _logIfError(error) {
-    if (!error) {
-      return
-    }
-    console.error(error)
-    fs.writeFile('./logs/log.txt', error, function(logWritingError) {
-        if (logWritingError) {
-            console.error(logWritingError)
-        }
-    })
-  }
-
-  /**
-   * @private
    *
    * @param {Map} dir
    * @param {String} dir.path
@@ -54,34 +41,31 @@ class AnimeFileRenamer {
     const excludedFiles = dir.reccursion && dir.reccursion.excluded_files || []
     const useDirName = dir.reccursion && dir.reccursion.use_dir_name
 
-    fs.readdir(dir.path, (err, fileNames) => {
-      fileNames.forEach(fileName => {
-        if (excludedFiles.includes(fileName)) {
-          return
-        }
-        const isDowloading = fileNames.includes(fileName + '.part')
-        if (this.config.skip_downloading_content && isDowloading) {
-          return
-        }
+    const fileNames = fs.readdirSync(dir.path)
+    fileNames.forEach(fileName => {
+      if (excludedFiles.includes(fileName)) {
+        return
+      }
+      const isDowloading = fileNames.includes(fileName + '.part')
+      if (this.config.skip_downloading_content && isDowloading) {
+        return
+      }
 
-        const filePath = [dir.path, fileName].join('\\')
-        const isVideo = this.config.video_extensions.some(format => fileName.endsWith(format))
-        if (isVideo) {
-          const anime = new Anime(fileName, useDirName && folderName)
+      const filePath = path.join(dir.path, fileName)
+      const isVideo = this.config.video_extensions.some(format => fileName.endsWith(format))
+      if (isVideo) {
+        const anime = new Anime(fileName, useDirName && folderName)
 
-          const number = folderName && anime.isFailed ?
-            prompt('What is the episode for ' + folderName + '? (default ' + anime.number + ') ') :
-            anime.number
-          const fileName = anime.getFileName({number: number})
+        const number = folderName && anime.isFailed ?
+          readLineSync.question('What is the episode for ' + folderName + '? (default ' + anime.number + ') ') :
+          anime.number
+        const animeName = anime.getFileName({number: number})
 
-          fs.rename(filePath, [dir.path, fileName].join('\\'), _logIfError)
-        }
-
-        if (dir.reccursion && fs.lstatSync(filePath).isDirectory()) {
-          var fileConfig = Object.assign({}, dir, {path: filePath})
-          _renameFiles(fileConfig, useDirName ? fileName : null)
-        }
-      });
+        FilesUtils.rename(filePath, path.join(dir.path, animeName))
+      } else if (dir.reccursion && fs.lstatSync(filePath).isDirectory()) {
+        var fileConfig = Object.assign({}, dir, {path: filePath})
+        this._renameFiles(fileConfig, useDirName ? fileName : null)
+      }
     })
   }
 
@@ -89,8 +73,8 @@ class AnimeFileRenamer {
    * @public
    */
   renameAll() {
-    this.config.target_dir.forEach(dir => _renameFiles(dir, null))
+    this.config.target_dir.forEach(dir => this._renameFiles(dir, null))
   }
 }
 
-exports.Anime = AnimeFileRenamer;
+exports.AnimeFileRenamer = AnimeFileRenamer;

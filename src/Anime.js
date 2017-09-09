@@ -55,11 +55,11 @@ class Anime {
       sanitizedName = sanitizedName.replace(word, '')
     })
 
-    const number = sanitizedName.match(/\d+(?=\D*$)/)[0]
+    const number = (sanitizedName.match(/\d+(?=\D*$)/) || ['']) [0]
     const name = sanitizedName.substring(0, sanitizedName.lastIndexOf(number)).trim()
 
     // If the name is equals to it the renaming is considered as failed
-    const isFailed = !name || config.failure_words.includes(name)
+    const isFailed = !name || config.failure_words.includes(name) || !number.length
     return {
       name: name,
       number: number.length < 2 ? '0' + number : number,
