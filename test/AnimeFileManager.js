@@ -17,15 +17,21 @@ describe('AnimeFileManager', function() {
   const folderPath = path.join(tempFolder, 'testDir')
   const folder2Path = path.join(tempFolder, 'testDir2')
   const subFolderPath = path.join(folderPath, 'other')
+
+  const testMaps = [ // [default file, renamed file]
+    [path.join(tempFolder, 'truc.mkv'), path.join(tempFolder, 'truc - 00.mkv')],
+    [path.join(tempFolder, 'other 01.mkv'), path.join(tempFolder, 'other - 01.mkv')],
+    [path.join(folderPath, 'other 01.mkv'), path.join(folderPath, 'testDir - 01.mkv')],
+    [path.join(folderPath, 'truc 02.mkv'), path.join(folderPath, 'testDir - 02.mkv')],
+    [path.join(folderPath, 'truc.mkv'), path.join(folderPath, 'testDir - 03.mkv')],
+    [path.join(subFolderPath, 'other 01.mkv'), path.join(subFolderPath, 'other - 01.mkv')],
+    [path.join(subFolderPath, 'blop 02.avi'), path.join(subFolderPath, 'other - 02.avi')]
+  ]
+
   beforeEach(() => {
     FilesUtils.mkdirpSync(folderPath)
     FilesUtils.mkdirpSync(folder2Path)
     FilesUtils.mkdirpSync(subFolderPath)
-    fs.writeFileSync(path.join(folderPath, 'truc.mkv'), 'test')
-    fs.writeFileSync(path.join(folderPath, 'truc 02.mkv'), 'test')
-    fs.writeFileSync(path.join(folderPath, 'other 01.mkv'), 'subFolderPath')
-    fs.writeFileSync(path.join(subFolderPath, 'other 01.mkv'), 'subFolderPath')
-    fs.writeFileSync(path.join(subFolderPath, 'other 02.avi'), 'subFolderPath')
   })
 
   afterEach(() =>
@@ -35,12 +41,9 @@ describe('AnimeFileManager', function() {
   describe('#renameAll', function() {
     it('should rename all anime in a folder according to folder name', function() {
       const animeFileRenamer = new AnimeFileManager(testConfig)
+      testMaps.forEach(test => { fs.writeFileSync(test[0], 'test') })
       animeFileRenamer.renameAll()
-
-      assert(fs.existsSync(path.join(folderPath, 'testDir - 01.mkv')))
-      assert(fs.existsSync(path.join(folderPath, 'testDir - 02.mkv')))
-      assert(fs.existsSync(path.join(folderPath, 'testDir - 03.mkv')))
-      assert(fs.existsSync(path.join(subFolderPath, 'other - 02.avi')))
+      testMaps.forEach(test => { assert(fs.existsSync(test[1])) })
     });
   });
 });
