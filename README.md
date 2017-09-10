@@ -1,11 +1,12 @@
 # Requirements
-To use it you, obviously, need to have nodejs installed..
+To use it you, obviously, need to have node.js and npm installed..
 
 # How to use it?
 - Run `npm install`
 - Create a `logs` folder under the project (if you want some log in case of failure)
 - In `config.json` change the hard coded path for the `target_dir`
   - Note that you can add other directories
+- Rename `config.sample.json` to `config.json` (will work with the sample though)
 - In `config.json` add the video extensions to handle under `video_extensions`
 - Run `npm run start` each time you feel like it
 

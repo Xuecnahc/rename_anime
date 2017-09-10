@@ -14,14 +14,6 @@
   ],
   "target_dir": [
     {
-      "path": "C:\\Users\\Hiéronymus Pierre\\Downloads",
-      "organize_root_anime_in_folder": true,
-      "reccursion": {
-        "use_dir_name": true,
-        "excluded_files": []
-      }
-    },
-    {
       "path": "D:\\Anime",
       "organize_root_anime_in_folder": true,
       "reccursion": {
