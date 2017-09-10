@@ -61,7 +61,7 @@ class AnimeFileManager {
           anime.number
         const animeName = anime.getFileName({number: number})
 
-        FilesUtils.rename(filePath, path.join(dir.path, animeName))
+        fs.renameSync(filePath, path.join(dir.path, animeName))
       } else if (dir.reccursion && fs.lstatSync(filePath).isDirectory()) {
         var fileConfig = Object.assign({}, dir, {path: filePath})
         this._renameFiles(fileConfig, useDirName ? fileName : null)
@@ -70,10 +70,69 @@ class AnimeFileManager {
   }
 
   /**
+   * @private
+   *
+   * @param {Map} dir
+   * @param {String} dir.path
+   * @param {String} dir.organize_root_anime_in_folder
+   */
+  _organizeInFolders(dir) {
+    if (!dir.organize_root_anime_in_folder) {
+      return
+    }
+
+   const fileNames = fs.readdirSync(dir.path)
+   const animeFiles = fileNames.filter(fileName => {
+     const isDowloading = fileNames.includes(fileName + '.part')
+     if (this.config.skip_downloading_content && isDowloading) {
+       return false
+     }
+
+     return this.config.video_extensions.some(format => fileName.endsWith(format))
+   }).map(fileName => {
+     const animeNameParts = fileName.split('-')
+     animeNameParts.pop() // remove number and extension
+     return {name: fileName, anime: animeNameParts.join('-').trim()}
+   })
+
+   // ensure more than one element is present to create folder
+   let animeMap = {}
+   animeFiles.forEach(animeFile => {
+     animeMap[animeFile.anime] = animeMap[animeFile.anime]
+      ? animeMap[animeFile.anime] + 1
+      : 1
+   })
+
+   Object.keys(animeMap).forEach(name => {
+     const count = animeMap[name]
+     if (count <= 1) {
+       return
+     }
+
+     FilesUtils.mkdirpSync(path.join(dir.path, name))
+     animeFiles.forEach(animeFile => {
+       if (animeFile.anime === name) {
+         fs.renameSync(
+           path.join(dir.path, animeFile.name),
+           path.join(dir.path, name, animeFile.name)
+         )
+       }
+     })
+   })
+ }
+
+  /**
    * @public
    */
   renameAll() {
     this.config.target_dir.forEach(dir => this._renameFiles(dir, null))
+  }
+
+  /**
+   * @public
+   */
+  organizeRootAnimeInFolder() {
+    this.config.target_dir.forEach(dir => this._organizeInFolders(dir, null))
   }
 }
 

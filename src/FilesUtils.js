@@ -39,16 +39,6 @@ class FilesUtils {
     })
 
   	fs.rmdirSync(dir);
-  };
-
-  /**
-   * @public
-   *
-   * @param {String} oldPath
-   * @param {String} newPath
-   */
-  static rename(oldPath, newPath) {
-    fs.renameSync(oldPath, newPath)
   }
 
   /**

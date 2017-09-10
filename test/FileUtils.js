@@ -23,7 +23,7 @@ describe('FilesUtils', function() {
     })
   })
 
-  describe('#mkdirpSync', function() {
+  describe('#rmdirpSync', function() {
     it('should delete folder reccursively', function() {
       const subFolderPath = path.join(tempFolder, 'testDir', 'other')
       FilesUtils.mkdirpSync(path.join(appDir, subFolderPath))

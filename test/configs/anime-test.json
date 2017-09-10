@@ -15,6 +15,7 @@
   "target_dir": [
     {
       "path": "test/temp",
+      "organize_root_anime_in_folder": true,
       "reccursion": {
         "use_dir_name": true,
         "excluded_files": []
