@@ -1,4 +1,8 @@
-const config = require('./config.json')
+const fs = require('fs')
+const path = require('path')
+const config = fs.existsSync(path.join(__dirname, 'config.json'))
+  ? require('./config.json')
+  : require('./config.sample.json')
 
 class Anime {
   /**

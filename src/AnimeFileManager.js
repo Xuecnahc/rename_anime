@@ -1,5 +1,5 @@
 const fs = require('fs')
-const path = require('path');
+const path = require('path')
 const readLineSync = require('readline-sync')
 
 const {FilesUtils} = require('./FilesUtils.js')
