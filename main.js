@@ -1,6 +1,6 @@
-const fs = reauire('fs')
+const fs = require('fs')
 const {AnimeFileManager} = require('./src/AnimeFileManager.js')
-const config = fs.existSync('src/config.json')
+const config = fs.existsSync('src/config.json')
   ? require('./src/config.json')
   : require('./src/config.sample.json')
 
