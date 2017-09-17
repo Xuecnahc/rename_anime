@@ -61,7 +61,9 @@ class AnimeFileManager {
           anime.number
         const animeName = anime.getFileName({number: number})
 
-        fs.renameSync(filePath, path.join(dir.path, animeName))
+        if (fileName !== animeName) {
+          fs.renameSync(filePath, path.join(dir.path, animeName))
+        }
       } else if (dir.reccursion && fs.lstatSync(filePath).isDirectory()) {
         var fileConfig = Object.assign({}, dir, {path: filePath})
         this._renameFiles(fileConfig, useDirName ? fileName : null)
