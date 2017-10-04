@@ -34,6 +34,8 @@ Here is a explanation of the configuration file and an example using windows:
   target_dir: [ // List of directories and options
     {
       path: "D:\\Animes", // Absolute path of directory
+      organize_root_anime_in_folder: true, // create folder for animes with same name
+      minimum_anime_to_create_folder: 2, // if organize_root_anime_in_folder is true. default 1
       reccursion: { // options for reccursion on subfolder. don,t specify for no reccursion
         use_dir_name: true, // for subfolder the animes will use the name of the folder
         excluded_files: [] // folders or files to exclude

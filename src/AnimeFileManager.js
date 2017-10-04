@@ -107,7 +107,10 @@ class AnimeFileManager {
 
    Object.keys(animeMap).forEach(name => {
      const count = animeMap[name]
-     if (count <= 1) {
+     const minimumCount = Number.isInteger(dir.minimum_anime_to_create_folder)
+      ? dir.minimum_anime_to_create_folder
+      : 2
+     if (count < minimumCount) {
        return
      }
 

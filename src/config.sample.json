@@ -16,6 +16,7 @@
     {
       "path": "D:\\Anime",
       "organize_root_anime_in_folder": true,
+      "minimum_anime_to_create_folder": 2,
       "reccursion": {
         "use_dir_name": true,
         "excluded_files": []
